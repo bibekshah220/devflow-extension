@@ -71,8 +71,16 @@ try {
   assert.equal(beforeGrant.error.code, 'FORBIDDEN');
   assert.equal(beforeGrant.error.details.needsHostPermission, true);
 
-  const granted = await panel.evaluate(() => chrome.permissions.request({ origins: ['*://*/*'] }));
-  assert.equal(granted, true, 'host permission granted');
+  // The grant page is the fallback the side panel offers, because some Chrome builds
+  // will not surface the permission prompt from a side panel at all.
+  const grant = await context.newPage();
+  await grant.goto(`chrome-extension://${id}/grant.html`);
+  await grant.getByRole('button', { name: 'Grant access' }).click();
+  await grant.waitForFunction(() => document.getElementById('status').textContent !== '', {
+    timeout: 10000,
+  });
+  assert.match(await grant.locator('#status').innerText(), /Access granted/);
+  await grant.close();
 
   await target.bringToFront();
   await panel.waitForTimeout(500);

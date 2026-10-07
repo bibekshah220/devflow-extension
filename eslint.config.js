@@ -48,5 +48,13 @@ export default tseslint.config(
       'no-console': 'off',
     },
   },
+  {
+    // Extension pages served verbatim from public/: never bundled, so no tsconfig.
+    files: ['**/public/**/*.js'],
+    extends: [tseslint.configs.disableTypeChecked],
+    languageOptions: {
+      globals: { ...globals.browser, chrome: 'readonly' },
+    },
+  },
   prettier,
 );

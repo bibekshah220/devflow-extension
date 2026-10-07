@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DevFlow AI — site access</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 2rem;
+        background: #09090b;
+        color: #e4e4e7;
+        font:
+          14px/1.6 ui-sans-serif,
+          system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 32rem;
+      }
+      h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1rem;
+      }
+      p {
+        color: #a1a1aa;
+      }
+      button {
+        margin-top: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #3f3f46;
+        border-radius: 0.25rem;
+        background: #18181b;
+        color: #fafafa;
+        font: inherit;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #27272a;
+      }
+      #status {
+        margin-top: 0.75rem;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Site access</h1>
+      <p>
+        DevFlow reads a page only when you ask it to. Granting access here lets the side panel
+        inspect the tab you are on after it navigates, which the one-off tab permission cannot
+        cover. You can revoke it any time from the extension's details page.
+      </p>
+      <button id="grant" type="button">Grant access</button>
+      <p id="status"></p>
+    </main>
+    <script src="grant.js"></script>
+  </body>
+</html>
