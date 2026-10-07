@@ -38,11 +38,12 @@ export default tseslint.config(
     extends: [tseslint.configs.disableTypeChecked],
   },
   {
-    // Plain Node scripts outside any tsconfig: end-to-end drivers and tooling.
+    // Plain Node scripts outside any tsconfig: end-to-end drivers and tooling. They
+    // carry browser globals too, inside the callbacks the driver evaluates in a page.
     files: ['**/*.mjs'],
     extends: [tseslint.configs.disableTypeChecked],
     languageOptions: {
-      globals: { ...globals.node, chrome: 'readonly' },
+      globals: { ...globals.node, ...globals.browser, chrome: 'readonly' },
     },
     rules: {
       'no-console': 'off',
