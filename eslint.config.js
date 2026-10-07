@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import prettier from 'eslint-config-prettier';
+import globals from 'globals';
 
 export default tseslint.config(
   {
@@ -35,6 +36,17 @@ export default tseslint.config(
   {
     files: ['**/*.config.{js,ts}', 'eslint.config.js'],
     extends: [tseslint.configs.disableTypeChecked],
+  },
+  {
+    // Plain Node scripts outside any tsconfig: end-to-end drivers and tooling.
+    files: ['**/*.mjs'],
+    extends: [tseslint.configs.disableTypeChecked],
+    languageOptions: {
+      globals: { ...globals.node, chrome: 'readonly' },
+    },
+    rules: {
+      'no-console': 'off',
+    },
   },
   prettier,
 );
