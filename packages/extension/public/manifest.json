@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "DevFlow AI",
+  "version": "0.1.0",
+  "description": "AI-powered developer productivity and debugging assistant.",
+  "minimum_chrome_version": "116",
+  "permissions": ["sidePanel", "storage", "scripting", "activeTab"],
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Open DevFlow AI"
+  }
+}
