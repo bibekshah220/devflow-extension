@@ -3,6 +3,13 @@ import { isOk } from '@devflow/shared';
 import type { ApiErrorBody, DevFlowResultMap } from '@devflow/shared';
 import { sendToBackground } from '../services/messaging';
 
+/** Matches optional_host_permissions in the manifest. Requested on demand, never at install. */
+const HOST_ACCESS = '*://*/*';
+
+function needsHostPermission(status: Status): boolean {
+  return status.kind === 'error' && status.error.details?.needsHostPermission === true;
+}
+
 type Status =
   | { kind: 'idle' }
   | { kind: 'loading' }
@@ -22,6 +29,14 @@ export function App(): React.JSX.Element {
       );
     });
   }, []);
+
+  const requestAccess = useCallback(() => {
+    // permissions.request needs a user gesture, which this click is. Already-granted
+    // origins resolve true without showing a prompt.
+    void chrome.permissions.request({ origins: [HOST_ACCESS] }).then((granted) => {
+      if (granted) checkPage();
+    });
+  }, [checkPage]);
 
   return (
     <div className="flex h-full flex-col bg-zinc-950 text-sm text-zinc-200">
@@ -60,6 +75,15 @@ export function App(): React.JSX.Element {
             <div className="rounded border border-red-900/60 bg-red-950/30 p-2">
               <p className="font-mono text-[11px] text-red-400">{status.error.code}</p>
               <p className="mt-1 text-xs text-zinc-300">{status.error.message}</p>
+              {needsHostPermission(status) && (
+                <button
+                  type="button"
+                  onClick={requestAccess}
+                  className="mt-2 rounded border border-zinc-700 bg-zinc-900 px-2.5 py-1.5 text-xs text-zinc-100 hover:bg-zinc-800"
+                >
+                  Grant access to this site
+                </button>
+              )}
             </div>
           )}
         </div>

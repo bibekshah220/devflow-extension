@@ -14,5 +14,6 @@
   },
   "action": {
     "default_title": "Open DevFlow AI"
-  }
+  },
+  "optional_host_permissions": ["*://*/*"]
 }
