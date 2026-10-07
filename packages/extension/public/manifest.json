@@ -4,7 +4,14 @@
   "version": "0.1.0",
   "description": "AI-powered developer productivity and debugging assistant.",
   "minimum_chrome_version": "116",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
   "permissions": ["sidePanel", "storage", "scripting", "activeTab"],
+  "optional_host_permissions": ["*://*/*"],
   "background": {
     "service_worker": "service-worker.js",
     "type": "module"
@@ -13,7 +20,12 @@
     "default_path": "sidepanel.html"
   },
   "action": {
-    "default_title": "Open DevFlow AI"
-  },
-  "optional_host_permissions": ["*://*/*"]
+    "default_title": "Open DevFlow AI",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  }
 }
