@@ -46,6 +46,16 @@ user-initiated. No host permission is added without a line in this document
 saying which feature needs it. Optional permissions are requested at the moment
 of use, not at install.
 
+Granted at install: `sidePanel`, `storage`, `scripting`, `activeTab`. None of
+these can read page content on their own.
+
+Optional, never requested at install: `*://*/*`. `activeTab` covers only a tab
+the user has invoked the extension on, and Chrome revokes it when that tab
+navigates. Any later inspection of that tab therefore needs a host permission.
+The side panel asks for it at the moment a check fails, and the user can revoke
+it from the extension's details page. The pattern deliberately excludes
+`file://` and `ftp://`.
+
 ### Sensitive data — Phase 7
 
 The network inspector must redact before anything leaves the browser.

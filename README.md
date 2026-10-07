@@ -63,6 +63,20 @@ reload button on the card in `chrome://extensions`, then reopen the side panel.
 | `npm test`             | Per-workspace tests (none exist yet)              |
 | `npm run clean`        | Removes build output and `.tsbuildinfo`           |
 
+## Testing
+
+```bash
+npm test                              # unit tests
+npm run build && npm run test:e2e -w @devflow/extension
+```
+
+The end-to-end check drives real Chrome: it installs the built extension, waits
+for the service worker, renders the side panel and completes a ping round trip
+through the content script. It needs a display and is excluded from `npm test`.
+
+Chrome 137 and later ignore `--load-extension`, so the test installs the
+extension over the DevTools protocol instead.
+
 ## Roadmap
 
 Phases are built in order; each one leaves the repo in a working state.
