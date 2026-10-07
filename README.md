@@ -57,10 +57,11 @@ reload button on the card in `chrome://extensions`, then reopen the side panel.
 | ---------------------- | ------------------------------------------------- |
 | `npm run dev`          | Rebuilds the extension on change                  |
 | `npm run build`        | Builds `shared`, then the extension               |
+| `npm run package`      | Builds and zips the extension for the Web Store   |
 | `npm run typecheck`    | `tsc --build` across the project references graph |
 | `npm run lint`         | ESLint, type-aware, across the repo               |
+| `npm test`             | Unit tests across workspaces                      |
 | `npm run format:check` | Prettier verification                             |
-| `npm test`             | Per-workspace tests (none exist yet)              |
 | `npm run clean`        | Removes build output and `.tsbuildinfo`           |
 
 ## Testing
@@ -76,6 +77,21 @@ through the content script. It needs a display and is excluded from `npm test`.
 
 Chrome 137 and later ignore `--load-extension`, so the test installs the
 extension over the DevTools protocol instead.
+
+## Packaging
+
+```bash
+npm run package
+```
+
+Builds, then writes `packages/extension/devflow-ai-<version>.zip` for the Chrome
+Web Store. Sourcemaps are excluded: publishing them would ship readable source
+to everyone who installs the extension.
+
+Before a first submission the listing still needs a privacy policy URL, written
+justification for `*://*/*` and `scripting`, at least one 1280x800 screenshot,
+and the one-time developer registration fee. A broad host permission draws
+extended review.
 
 ## Roadmap
 

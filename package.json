@@ -20,7 +20,8 @@
     "format:check": "prettier --check .",
     "test": "npm run test --workspaces --if-present",
     "clean": "tsc --build --clean && rm -rf packages/*/dist",
-    "dev": "npm run dev -w @devflow/extension"
+    "dev": "npm run dev -w @devflow/extension",
+    "package": "npm run package -w @devflow/extension"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
