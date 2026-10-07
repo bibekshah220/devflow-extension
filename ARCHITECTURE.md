@@ -95,6 +95,13 @@ Two Vite passes. The pages and the service worker build as ES modules; the
 content script builds separately as a single IIFE, because `chrome.scripting`
 runs it as a classic script and an ESM chunk graph would not load.
 
+Both passes alias `@devflow/shared` to its TypeScript source rather than its
+build output, and the extension's tsconfig maps the same path. Resolving
+through the package's `exports` would mean this workspace only builds after
+`shared` has been built, so any CI that builds the extension alone fails on a
+clean checkout. Nothing is gained by it either: the two packages are bundled
+together.
+
 ## Backend — Planned (Phase 5+)
 
 Node + TypeScript + Express, Postgres via Prisma, Redis for rate limiting and

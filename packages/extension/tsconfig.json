@@ -5,12 +5,16 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
-    "types": ["chrome", "vite/client"],
+    "types": ["chrome", "vite/client", "node"],
 
     "composite": false,
     "declaration": false,
     "declarationMap": false,
-    "noEmit": true
+    "noEmit": true,
+
+    "paths": {
+      "@devflow/shared": ["../shared/src/index.ts"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "*.config.ts"]
 }
